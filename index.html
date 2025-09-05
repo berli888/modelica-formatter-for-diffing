@@ -1,0 +1,26 @@
+<html>
+  <h1>Tool Format Modelica code base for easy diffing</h1>
+  <h2>Input</h2>
+
+  <textarea id="inputTxt"></textarea>
+  <button id="execute">Format input</button>
+  <h2>Output</h2>
+  <textarea id="output" style="width: 90%; height: 200px"></textarea>
+  <script>
+    const formatModelica = (moCode) => {
+      return moCode
+        .replaceAll(/[\s\r\n\t]+/gi, " ")
+        .replaceAll(/\s*,/gi, ",\n")
+        .replaceAll(/ annotation\s*\(.+?\);/gi, ";")
+        .replaceAll(/\(/gi, "(\n")
+        .replaceAll(/\)/gi, "\n)")
+        .replaceAll(/\s*; /gi, ";\n");
+    };
+
+    document.getElementById("execute").addEventListener("click", () => {
+      const inputTxtValue = document.getElementById("inputTxt").value;
+      const outputValue = formatModelica(inputTxtValue);
+      document.getElementById("output").innerHTML = outputValue;
+    });
+  </script>
+</html>
